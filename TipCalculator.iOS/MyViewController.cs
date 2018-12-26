@@ -40,6 +40,16 @@ namespace TipCalculator.iOS
             };
 
             View.AddSubviews(totalAmount, calcButton, resultLabel);
+
+            calcButton.TouchUpInside += (s, e) =>
+            {
+                totalAmount.ResignFirstResponder();
+
+                double value = 0;
+                double.TryParse(totalAmount.Text, out value);
+
+                resultLabel.Text = $"Tip is {TipCalculator.GetTip(value, 20).ToString("C")}";
+            };
         }
     }
 }
